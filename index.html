@@ -113,21 +113,20 @@
 				
 				
 				loader.load( "./chinese_msyh.ttf", function ( json ) {
-				console.log(json)
+				//console.log(json)
 					font = new THREE.Font( json );
 					createText();
 
 				} );
 
 				loader.load( "./chinese_msyh.ttf", function ( json ) {
-				console.log(json)
+				//console.log(json)
 					font = new THREE.Font( json );
 					for(let i = 0; i < 12; i++){
-						console.log(i)
 						let vector = new THREE.Vector3(80 * Math.cos(-Math.PI*2*(30*i)/360 + Math.PI*0.5) - 10, 80 * Math.sin(-Math.PI*2*(30*i)/360 + Math.PI*0.5) - 10, 0);
-						console.log(Math.PI*2*(30*i)/360)
-						console.log(vector);
-						url = "https://github.com/NTUT-CG-Lab/cg2021f-hw" + String(i+1).padStart(2,'0') +"-lf29963158";
+						//console.log(Math.PI*2*(30*i)/360)
+						//console.log(vector);
+						url = "https://NTUT-CG-Lab.github.io/cg2021f-hw" + String(i+1).padStart(2,'0') +"-lf29963158";
 						createCircleText(circleCharacter[i], vector, url);
 					}
 
@@ -375,7 +374,7 @@
 					font: font,
 
 					size: 14,
-					height: height,
+					height: 0,
 					curveSegments: curveSegments,
 
 					bevelThickness: bevelThickness,
@@ -407,9 +406,9 @@
 					new THREE.MeshBasicMaterial( { color: 0x0077ff, opacity: 0.7, transparent: true} )
 				);
 				circle.position.x = vector.x + 10;
-				console.log('circle.positionx',circle.position.x);
+				//console.log('circle.positionx',circle.position.x);
 				circle.position.y = vector.y + 10;
-				console.log('circle.positiony',circle.position.y);
+				//console.log('circle.positiony',circle.position.y);
 				circle.position.z = vector.z + 1;
 				//circle.rotation.x = - Math.PI / 2;
 				group.add( circle );
