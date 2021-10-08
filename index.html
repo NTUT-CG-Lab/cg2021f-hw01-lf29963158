@@ -68,6 +68,18 @@
 			geometryLine = new THREE.BufferGeometry().setFromPoints( points );
 			const lineSec = new THREE.Line( geometryLine, materialLine );
 
+			planeGeo = new THREE.PlaneGeometry( 400, 400 );
+			planeGeo.computeBoundingBox();
+			planeGeo.computeVertexNormals();
+
+			let speed = -1;
+			let plymesh;
+
+			// console.log(planeGeo.boundingBox.max.x);
+			// console.log(planeGeo.boundingBox.min.x);
+			// console.log(planeGeo.boundingBox.max.y);
+			// console.log(planeGeo.boundingBox.min.y);
+
 
 			init();
 			animate();
@@ -134,7 +146,7 @@
 
 
 				const plane = new THREE.Mesh(
-					new THREE.PlaneGeometry( 400, 400 ),
+					planeGeo,
 					new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: 0.5, transparent: true } )
 				);
 				//plane.position.y = 100;
@@ -180,17 +192,20 @@
 					const material = new THREE.MeshStandardMaterial( { color: 0x0055ff, flatShading: true } );
 					const mesh = new THREE.Mesh( geometry, material );
 
-					mesh.position.x = 100;
-					mesh.position.y = 100;
-					mesh.position.z = 0;
+					mesh.position.x = 0;
+					mesh.position.y = 10;
+					mesh.position.z = 20;
 					mesh.rotation.x = - Math.PI / 2;
+					mesh.rotation.z = - Math.PI / 2;
+					
 					mesh.scale.multiplyScalar( 0.1 );
 
 					mesh.castShadow = true;
 					mesh.receiveShadow = true;
 
+					plymesh = mesh;
 					groupPLY.add(mesh)
-					groupPLY.position.y = 100;
+					//groupPLY.position.y = 100;
 					scene.add(groupPLY);
 
 				} );
@@ -506,7 +521,18 @@
 
 				camera.lookAt( cameraTarget );
 				
-				groupPLY.rotation.z += 0.05;
+				
+				groupPLY.position.x += speed;
+				if(groupPLY.position.x < planeGeo.boundingBox.min.x || groupPLY.position.x > planeGeo.boundingBox.max.x){	
+					speed = -speed;
+					if(plymesh)
+						plymesh.rotation.z = -plymesh.rotation.z;
+				}
+				
+				// console.log(planeGeo.boundingBox.min.x);
+				// console.log(groupPLY.position.x);
+				// console.log(planeGeo.boundingBox.max.x);
+
 
 				let today = new Date();
 				let hour = today.getHours();
